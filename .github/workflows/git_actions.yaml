@@ -62,13 +62,13 @@ jobs:
                 tags: ${{secrets.DOCKER_LOGIN_USERNAME}}/go-web-app:${{github.run_id}}
         
     update-newtag-to-helmchart:
-        needs: push
         runs-on: ubuntu-latest
+        needs: push
         steps:
             - name: Checkout-Repository
               uses: actions/checkout@v4
               with:
-                token: ${{secrets.GITHUB_TOKEN}}
+                token: ${{secrets.Git_Repo_Access_Token}}
             
             - name: Update New Tag in helm chart values.yaml file
               run: |
