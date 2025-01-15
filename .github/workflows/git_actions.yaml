@@ -10,7 +10,7 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-server
+        runs-on: ubuntu-latest
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
               run: go test ./...
 
     codequality:
-        runs-on: ubuntu-server
+        runs-on: ubuntu-latest
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
@@ -39,7 +39,7 @@ jobs:
             
     push:
         needs: build
-        runs-on: ubuntu-server
+        runs-on: ubuntu-latest
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
@@ -63,7 +63,7 @@ jobs:
         
     update-newtag-to-helmchat:
         needs: push
-        runs-on: ubuntu-server
+        runs-on: ubuntu-latest
         steps:
             - name: Checkout-Repository
               uses: actions/checkout@v4
