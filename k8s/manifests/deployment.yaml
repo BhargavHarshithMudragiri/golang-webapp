@@ -15,7 +15,7 @@ spec:
         app: go-web-app
     spec:
       containers:
-      - name: go-web-app
+      - name: go-webapp-container
         image: bhargavharshith/go-web-app:v1
         ports:
          - containerPort: 8080
