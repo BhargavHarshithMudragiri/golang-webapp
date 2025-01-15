@@ -26,13 +26,13 @@ jobs:
             - name: Run Test cases
               run: go test ./...
 
-    codequality:
+    code-quality:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
 
-            - name: golangci-lint
+            - name: Run golangci-lint
               uses: golangci/golangci-lint-action@v6
               with:
                 version: v1.56.2
@@ -59,9 +59,9 @@ jobs:
                 context: .
                 file: ./Dockerfile
                 push: true
-                tag: ${{secrets.DOCKER_LOGIN_USERNAME}}/go-web-app:${{github.run_id}}
+                tags: ${{secrets.DOCKER_LOGIN_USERNAME}}/go-web-app:${{github.run_id}}
         
-    update-newtag-to-helmchat:
+    update-newtag-to-helmchart:
         needs: push
         runs-on: ubuntu-latest
         steps:
@@ -72,12 +72,12 @@ jobs:
             
             - name: Update New Tag in helm chart values.yaml file
               run: |
-                   sed -i 's/tag: .*/tag: "${{github.run_id}}"/g' helm/go-web-app-chart/values.yaml
+                sed -i 's/tag: .*/tag: "${{github.run_id}}"/g' helm/go-web-app-chart/values.yaml
             
             - name: Commit And Push Changes
               run: |
-                   git config --global user.email 'bhargavharshith@gmail.com'
-                   git config --global user.name 'BhargavHarshith'
-                   git add helm/go-web-app-chart/values.yaml
-                   git commit -m "Updated Docker Image with version number ${{github.run_id}}"
-                   git push
+                git config --global user.email 'bhargavharshith@gmail.com'
+                git config --global user.name 'BhargavHarshith'
+                git add helm/go-web-app-chart/values.yaml
+                git commit -m "Updated Tag in Helm Chart with version number ${{github.run_id}}"
+                git push
